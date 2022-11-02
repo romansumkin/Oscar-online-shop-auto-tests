@@ -27,3 +27,5 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     busket_page = BusketPage(browser, browser.current_url)
     busket_page.should_not_be_books_in_the_busket()
     busket_page.shoud_be_text_empty_busket()
+
+

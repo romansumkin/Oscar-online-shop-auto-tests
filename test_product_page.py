@@ -1,4 +1,5 @@
 from pages.product_page import ProductPage
+from pages.basket_page import BusketPage
 import pytest
 import time
 
@@ -45,14 +46,25 @@ def test_message_disappeared_after_adding_product_to_basket(browser):
     page.add_to_the_basket()
     page.success_message_should_disappear()
 
+@pytest.mark.skip
 def test_guest_should_see_login_link_on_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
     page.should_be_login_link()
 
+@pytest.mark.skip
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_buscket()
+    busket_page = BusketPage(browser, browser.current_url)
+    busket_page.should_not_be_books_in_the_busket()
+    busket_page.shoud_be_text_empty_busket()
